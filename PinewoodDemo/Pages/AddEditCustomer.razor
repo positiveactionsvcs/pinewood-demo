@@ -1,0 +1,46 @@
+﻿@page "/customers/add"
+@page "/customers/{CustomerId:guid}/edit"
+@inject ApiService Api
+@inject NavigationManager NavigationManager
+@layout MainLayout
+
+<h1>Add/Edit Customer</h1>
+
+@if (_customer == null)
+{
+    <p>Loading...</p>
+}
+else if (_customer != null)
+{
+    <EditForm Id="generalForm" EditContext="_editContext">
+        <DataAnnotationsValidator />
+        <ValidationSummary />
+
+        <table class="table">
+            <tbody>
+            <tr>
+                <td>First Name</td>
+                <td><InputText @bind-Value="_customer.FirstName" class="w-100" /></td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td><InputText @bind-Value="_customer.LastName" class="w-100" /></td>
+            </tr>
+            <tr>
+                <td>Email Address</td>
+                <td><InputText @bind-Value="_customer.Email" class="w-100" /></td>
+            </tr>
+            </tbody>
+        </table>
+    </EditForm>
+
+    <button @onclick="SaveButton">Save</button>
+    <button @onclick="CancelButton">Cancel</button>
+
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="alert alert-danger">
+            @_errorMessage
+        </div>
+    }
+}

@@ -1,0 +1,27 @@
+﻿@page "/customers/{CustomerId:guid}/delete"
+@inject ApiService Api
+@inject NavigationManager NavigationManager
+@layout MainLayout
+
+<h1>Delete Customer</h1>
+
+@if (_customer == null)
+{
+    <p>Loading...</p>
+}
+else if (_customer != null)
+{
+    <p>
+        Are you sure you want to delete @_customer.FirstName?
+    </p>
+
+    <button @onclick="DeleteButton">Delete</button>
+    <button @onclick="CancelButton">Cancel</button>
+
+    @if (!string.IsNullOrEmpty(_errorMessage))
+    {
+        <div class="alert alert-danger">
+            @_errorMessage
+        </div>
+    }
+}
